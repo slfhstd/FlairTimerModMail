@@ -29,7 +29,7 @@ def main(reddit, posts: dict):
                 if time.time() > posts[submission] + (config.hours * 60 * 60):
                     posts.pop(submission)
                     reddit.submission(submission).save()
-                    reddit.subreddit(config.subreddit).modmail.create(subject=f"{config.messagetitle}", body=f"It has been 10 minutes since this was flaired [{config.flair_text}](https://old.reddit.com{reddit.submission(submission).permalink})", recipient="mod")
+                    reddit.subreddit(config.subreddit).modmail.create(subject=f"{config.messagetitle}", body=f"It has been {config.hours/24} day/s since this was flaired [{config.flair_text}](https://old.reddit.com{reddit.submission(submission).permalink})", recipient=reddit.subreddit(config.subreddit))
                     print(f"Post {submission} has been flaired {config.flair_text} for {config.hours * 60} minutes, sent modmail")
                     break
  
