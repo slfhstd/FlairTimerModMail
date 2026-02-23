@@ -2,7 +2,7 @@ username = ""
 password =  ""
 client_id = ""
 client_secret = ""
-user_agent = "Flair Timer Modmail Bot"
+user_agent = "Flair Timer Mod Mail Bot"
 
 #Subreddits
 subreddit = "" # "INEEEEDIT" "Ofcoursethatsathing" "All"
