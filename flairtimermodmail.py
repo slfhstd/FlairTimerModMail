@@ -32,7 +32,7 @@ def main(reddit, posts: dict):
                     data = {
                         "subject": config.messagetitle,
                         "text": f"It has been {config.hours/24} day/s since this was flaired [{config.flair_text}](https://old.reddit.com{reddit.submission(submission).permalink})",
-                        "to": "/r/{}".format(config.modmail_recipient),
+                        "to": "/r/{}".format(config.subreddit),
                     }
                     reddit.post("api/compose/", data=data)
                     print(f"Post {submission} has been flaired {config.flair_text} for {config.hours * 60} minutes, sent modmail")
