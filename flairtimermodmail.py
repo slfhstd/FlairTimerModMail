@@ -3,7 +3,9 @@ import os.path
 import json
 import time
 
-# Create default config/config.py if it doesn't exist
+# Create default config/config.py if it doesn't exist and exit to prompt manual editing
+import sys
+
 default_config_path = os.path.join('config', 'config.py')
 if not os.path.exists(default_config_path):
     os.makedirs('config', exist_ok=True)
@@ -23,6 +25,8 @@ if not os.path.exists(default_config_path):
             'hours = 48\n'
             'searchlimit = 600\n'
         )
+    print("Default configuration file created at {}.\nPlease populate it with your Reddit credentials and subreddit settings before running the bot again.".format(default_config_path))
+    sys.exit(0)
 
 import config
  
