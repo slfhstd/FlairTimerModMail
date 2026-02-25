@@ -7,25 +7,43 @@ import time
 import sys
 
 default_config_path = os.path.join('config', 'config.py')
-if not os.path.exists(default_config_path):
+def env_or_default(var, default):
+    return os.environ.get(var, default)
+
+def write_config_from_env():
     os.makedirs('config', exist_ok=True)
     with open(default_config_path, 'w') as f:
         f.write(
-            '# Reddit API credentials\n'
-            'username = ""\n'
-            'password = ""\n'
-            'client_id = ""\n'
-            'client_secret = ""\n'
-            'user_agent = "Flair Timer Comment Bot" # Must be unique and descriptive\n'
+            f'username = "{env_or_default("USERNAME", "")}"\n'
+            f'password = "{env_or_default("PASSWORD", "")}"\n'
+            f'client_id = "{env_or_default("CLIENT_ID", "")}"\n'
+            f'client_secret = "{env_or_default("CLIENT_SECRET", "")}"\n'
+            f'user_agent = "{env_or_default("USER_AGENT", "Flair Timer Comment Bot" )}"\n'
             '\n'
-            '# Subreddits\n'
-            'subreddit = ""\n'
-            'flair_text = "Waiting for OP"\n'
-            'interval = 30\n'
-            'hours = 48\n'
-            'searchlimit = 600\n'
+            f'subreddit = "{env_or_default("SUBREDDIT", "")}"\n'
+            f'flair_text = "{env_or_default("FLAIR_TEXT", "Waiting for OP")}"\n'
+            f'interval = {env_or_default("INTERVAL", "30")}\n'
+            f'hours = {env_or_default("HOURS", "48")}\n'
+            f'messagetitle = "{env_or_default("MESSAGETITLE", "Modmail Notification")}"\n'
+            f'searchlimit = {env_or_default("SEARCHLIMIT", "600")}\n'
         )
-    print("Default configuration file created at {}.\nPlease populate it with your Reddit credentials and subreddit settings before running the bot again.".format(default_config_path))
+    print(f"Configuration file auto-populated from environment variables at {default_config_path}.")
+
+# Check if config file is missing or empty
+populate_config = False
+if not os.path.exists(default_config_path):
+    populate_config = True
+else:
+    try:
+        with open(default_config_path, 'r') as f:
+            content = f.read().strip()
+            if not content:
+                populate_config = True
+    except Exception:
+        populate_config = True
+
+if populate_config:
+    write_config_from_env()
     sys.exit(0)
 
 if not os.path.exists(default_config_path):

@@ -6,4 +6,7 @@ services:
     volumes:
       - /docker/data/flairtimermodmail:/app/config
 
+    env_file:
+      - .env
+
       
