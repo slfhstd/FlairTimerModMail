@@ -28,6 +28,8 @@ if not os.path.exists(default_config_path):
     print("Default configuration file created at {}.\nPlease populate it with your Reddit credentials and subreddit settings before running the bot again.".format(default_config_path))
     sys.exit(0)
 
+if not os.path.exists(default_config_path):
+    sys.exit(0)
 import config
  
 def authentication():
