@@ -1,8 +1,30 @@
 import praw
-import config
 import os.path
 import json
 import time
+
+# Create default config/config.py if it doesn't exist
+default_config_path = os.path.join('config', 'config.py')
+if not os.path.exists(default_config_path):
+    os.makedirs('config', exist_ok=True)
+    with open(default_config_path, 'w') as f:
+        f.write(
+            '# Reddit API credentials\n'
+            'username = ""\n'
+            'password = ""\n'
+            'client_id = ""\n'
+            'client_secret = ""\n'
+            'user_agent = "Flair Timer Comment Bot" # Must be unique and descriptive\n'
+            '\n'
+            '# Subreddits\n'
+            'subreddit = ""\n'
+            'flair_text = "Waiting for OP"\n'
+            'interval = 30\n'
+            'hours = 48\n'
+            'searchlimit = 600\n'
+        )
+
+import config
  
 def authentication():
     print ("Authenticating...")
